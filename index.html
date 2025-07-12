@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitZone Gym - Transform Your Body</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Navigation -->
+    <nav class="bg-black/90 backdrop-blur-sm sticky top-0 w-full z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="text-2xl font-bold text-orange-500">💪 FitZone</div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#" onclick="navigateToSection('home')" class="hover:text-orange-500 transition-colors cursor-pointer">Home</a>
+                <a href="#" onclick="navigateToSection('about')" class="hover:text-orange-500 transition-colors cursor-pointer">About</a>
+                <a href="#" onclick="navigateToSection('pricing')" class="hover:text-orange-500 transition-colors cursor-pointer">Pricing</a>
+                <a href="#" onclick="navigateToSection('bmi')" class="hover:text-orange-500 transition-colors cursor-pointer">BMI Calculator</a>
+            </div>
+            <div id="auth-buttons">
+                <button onclick="showLogin()" class="bg-orange-600 hover:bg-orange-700 px-6 py-2 rounded-lg font-semibold transition-colors">Login</button>
+                <button onclick="showSignup()" class="ml-2 border border-orange-600 hover:bg-orange-600 px-6 py-2 rounded-lg font-semibold transition-colors">Sign Up</button>
+            </div>
+            <div id="user-menu" class="hidden">
+                <span id="username-display" class="mr-4">Welcome, User!</span>
+                <button onclick="logout()" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg font-semibold transition-colors">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Welcome Section -->
+    <section id="home" class="hero-bg min-h-screen flex items-center justify-center">
+        <div class="text-center max-w-4xl mx-auto px-6">
+            <h1 class="text-6xl font-bold mb-6 bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                Transform Your Body
+            </h1>
+            <p class="text-xl mb-8 text-gray-300">Join FitZone and unlock your potential with state-of-the-art equipment and expert trainers</p>
+            <div class="grid md:grid-cols-3 gap-6 mt-12">
+                <div class="gym-equipment p-6 rounded-xl">
+                    <div class="text-4xl mb-4">🏋️‍♂️</div>
+                    <h3 class="text-xl font-semibold mb-2">Weight Training</h3>
+                    <p class="text-gray-400">Professional grade equipment for strength building</p>
+                </div>
+                <div class="gym-equipment p-6 rounded-xl">
+                    <div class="text-4xl mb-4">🏃‍♀️</div>
+                    <h3 class="text-xl font-semibold mb-2">Cardio Zone</h3>
+                    <p class="text-gray-400">Modern treadmills and cardio machines</p>
+                </div>
+                <div class="gym-equipment p-6 rounded-xl">
+                    <div class="text-4xl mb-4">🧘‍♂️</div>
+                    <h3 class="text-xl font-semibold mb-2">Yoga & Flexibility</h3>
+                    <p class="text-gray-400">Dedicated space for stretching and yoga</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-800">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 text-orange-500">About FitZone</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">Your Fitness Journey Starts Here</h3>
+                    <p class="text-gray-300 mb-6">
+                        At FitZone, we believe fitness is not just about physical transformation—it's about building confidence, 
+                        discipline, and a healthier lifestyle. Our state-of-the-art facility features the latest equipment, 
+                        experienced trainers, and a supportive community.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <span class="text-orange-500 mr-3">✓</span>
+                            <span>24/7 Access to Premium Equipment</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-orange-500 mr-3">✓</span>
+                            <span>Certified Personal Trainers</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-orange-500 mr-3">✓</span>
+                            <span>Group Classes & Individual Training</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-orange-500 mr-3">✓</span>
+                            <span>Nutrition Guidance & Support</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-orange-500 to-red-600 p-8 rounded-2xl">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🏆</div>
+                        <h4 class="text-2xl font-bold mb-4">Award Winning Gym</h4>
+                        <p class="text-orange-100">Recognized as the best fitness center in the city for 3 consecutive years</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-gray-900">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 text-orange-500">Choose Your Plan</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Basic Plan -->
+                <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700 hover:border-orange-500 transition-colors">
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold mb-4">BASIC</h3>
+                        <div class="text-4xl font-bold text-orange-500 mb-6">RS 2,500<span class="text-lg text-gray-400">/month</span></div>
+                        <ul class="space-y-3 mb-8 text-left">
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Gym Access (6 AM - 10 PM)</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Basic Equipment Usage</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Locker Facility</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Free WiFi</li>
+                            <li class="flex items-center"><span class="text-red-500 mr-2">✗</span> Personal Trainer</li>
+                            <li class="flex items-center"><span class="text-red-500 mr-2">✗</span> Group Classes</li>
+                        </ul>
+                        <button onclick="selectPlan('basic')" class="w-full bg-orange-600 hover:bg-orange-700 py-3 rounded-lg font-semibold transition-colors">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Regular Plan -->
+                <div class="bg-gray-800 rounded-2xl p-8 border-2 border-orange-500 relative">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-orange-500 text-black px-4 py-1 rounded-full text-sm font-bold">
+                        POPULAR
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold mb-4">REGULAR</h3>
+                        <div class="text-4xl font-bold text-orange-500 mb-6">RS 5,000<span class="text-lg text-gray-400">/month</span></div>
+                        <ul class="space-y-3 mb-8 text-left">
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> 24/7 Gym Access</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> All Equipment Access</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Locker + Towel Service</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> 2 Group Classes/Week</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Basic Nutrition Guide</li>
+                            <li class="flex items-center"><span class="text-red-500 mr-2">✗</span> Personal Trainer</li>
+                        </ul>
+                        <button onclick="selectPlan('regular')" class="w-full bg-orange-600 hover:bg-orange-700 py-3 rounded-lg font-semibold transition-colors">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Premium Plan -->
+                <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700 hover:border-orange-500 transition-colors">
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold mb-4">PREMIUM</h3>
+                        <div class="text-4xl font-bold text-orange-500 mb-6">RS 8,500<span class="text-lg text-gray-400">/month</span></div>
+                        <ul class="space-y-3 mb-8 text-left">
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> 24/7 VIP Access</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> All Premium Equipment</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Private Locker + Amenities</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Unlimited Group Classes</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> 4 Personal Training Sessions</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Custom Nutrition Plan</li>
+                        </ul>
+                        <button onclick="selectPlan('premium')" class="w-full bg-orange-600 hover:bg-orange-700 py-3 rounded-lg font-semibold transition-colors">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BMI Calculator -->
+    <section id="bmi" class="py-20 bg-gray-800">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 text-orange-500">BMI Calculator</h2>
+            <div class="bg-gray-900 rounded-2xl p-8">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-6">Calculate Your BMI</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Height (cm)</label>
+                                <input type="number" id="height" placeholder="Enter height in cm" class="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-orange-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Weight (kg)</label>
+                                <input type="number" id="weight" placeholder="Enter weight in kg" class="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-orange-500 focus:outline-none">
+                            </div>
+                            <button onclick="calculateBMI()" class="w-full bg-orange-600 hover:bg-orange-700 py-3 rounded-lg font-semibold transition-colors">
+                                Calculate BMI
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-6">Your Result</h3>
+                        <div id="bmi-result" class="bg-gray-800 rounded-lg p-6 text-center">
+                            <p class="text-gray-400">Enter your height and weight to calculate BMI</p>
+                        </div>
+                        <div class="mt-6 text-sm text-gray-400">
+                            <h4 class="font-semibold mb-2">BMI Categories:</h4>
+                            <ul class="space-y-1">
+                                <li>• Underweight: Below 18.5</li>
+                                <li>• Normal: 18.5 - 24.9</li>
+                                <li>• Overweight: 25 - 29.9</li>
+                                <li>• Obese: 30 and above</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center">
+        <div class="bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4 relative">
+            <h2 class="text-2xl font-bold mb-6 text-center text-orange-500">Login to FitZone</h2>
+            <form onsubmit="login(event)">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Email</label>
+                        <input type="email" id="login-email" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-orange-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Password</label>
+                        <input type="password" id="login-password" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-orange-500 focus:outline-none">
+                    </div>
+                    <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 py-3 rounded-lg font-semibold transition-colors">
+                        Login
+                    </button>
+                </div>
+            </form>
+            <div class="text-center mt-4">
+                <button onclick="hideLogin(); showSignup();" class="text-orange-500 hover:underline">Don't have an account? Sign up</button>
+            </div>
+            <button onclick="hideLogin()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">✕</button>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signup-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center">
+        <div class="bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4 relative">
+            <h2 class="text-2xl font-bold mb-6 text-center text-orange-500">Join FitZone</h2>
+            <form onsubmit="signup(event)">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Full Name</label>
+                        <input type="text" id="signup-name" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-orange-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Email</label>
+                        <input type="email" id="signup-email" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-orange-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Password</label>
+                        <input type="password" id="signup-password" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-orange-500 focus:outline-none">
+                    </div>
+                    <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 py-3 rounded-lg font-semibold transition-colors">
+                        Sign Up
+                    </button>
+                </div>
+            </form>
+            <div class="text-center mt-4">
+                <button onclick="hideSignup(); showLogin();" class="text-orange-500 hover:underline">Already have an account? Login</button>
+            </div>
+            <button onclick="hideSignup()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">✕</button>
+        </div>
+    </div>
+
+    <!-- Plan Confirmation Modal -->
+    <div id="plan-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center">
+        <div class="bg-gray-800 rounded-2xl p-8 max-w-lg w-full mx-4">
+            <h2 class="text-2xl font-bold mb-6 text-center text-orange-500">Confirm Your Plan</h2>
+            <div id="plan-details" class="mb-6"></div>
+            <div class="flex space-x-4">
+                <button onclick="hidePlanModal()" class="flex-1 bg-gray-600 hover:bg-gray-700 py-3 rounded-lg font-semibold transition-colors">
+                    Cancel
+                </button>
+                <button onclick="confirmPurchase()" class="flex-1 bg-orange-600 hover:bg-orange-700 py-3 rounded-lg font-semibold transition-colors">
+                    Buy Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Dashboard (Hidden by default) -->
+    <div id="user-dashboard" class="hidden">
+        <!-- Welcome Section for Dashboard -->
+        <section id="dashboard-home" class="hero-bg min-h-screen flex items-center justify-center">
+            <div class="text-center max-w-4xl mx-auto px-6">
+                <h1 class="text-6xl font-bold mb-6 bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                    Welcome Back!
+                </h1>
+                <p class="text-xl mb-8 text-gray-300">Continue your fitness journey with FitZone</p>
+                <div class="grid md:grid-cols-3 gap-6 mt-12">
+                    <div class="gym-equipment p-6 rounded-xl">
+                        <div class="text-4xl mb-4">📊</div>
+                        <h3 class="text-xl font-semibold mb-2">Track Progress</h3>
+                        <p class="text-gray-400">Monitor your fitness journey</p>
+                    </div>
+                    <div class="gym-equipment p-6 rounded-xl">
+                        <div class="text-4xl mb-4">💪</div>
+                        <h3 class="text-xl font-semibold mb-2">Your Plan</h3>
+                        <p class="text-gray-400">Manage your subscription</p>
+                    </div>
+                    <div class="gym-equipment p-6 rounded-xl">
+                        <div class="text-4xl mb-4">🎯</div>
+                        <h3 class="text-xl font-semibold mb-2">Set Goals</h3>
+                        <p class="text-gray-400">Achieve your fitness targets</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Plan Section -->
+             <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-gray-900">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 text-orange-500">Choose Your Plan</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Basic Plan -->
+                <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700 hover:border-orange-500 transition-colors">
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold mb-4">BASIC</h3>
+                        <div class="text-4xl font-bold text-orange-500 mb-6">RS 2,500<span class="text-lg text-gray-400">/month</span></div>
+                        <ul class="space-y-3 mb-8 text-left">
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Gym Access (6 AM - 10 PM)</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Basic Equipment Usage</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Locker Facility</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Free WiFi</li>
+                            <li class="flex items-center"><span class="text-red-500 mr-2">✗</span> Personal Trainer</li>
+                            <li class="flex items-center"><span class="text-red-500 mr-2">✗</span> Group Classes</li>
+                        </ul>
+                        <button onclick="selectPlan('basic')" class="w-full bg-orange-600 hover:bg-orange-700 py-3 rounded-lg font-semibold transition-colors">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Regular Plan -->
+                <div class="bg-gray-800 rounded-2xl p-8 border-2 border-orange-500 relative">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-orange-500 text-black px-4 py-1 rounded-full text-sm font-bold">
+                        POPULAR
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold mb-4">REGULAR</h3>
+                        <div class="text-4xl font-bold text-orange-500 mb-6">RS 5,000<span class="text-lg text-gray-400">/month</span></div>
+                        <ul class="space-y-3 mb-8 text-left">
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> 24/7 Gym Access</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> All Equipment Access</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Locker + Towel Service</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> 2 Group Classes/Week</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Basic Nutrition Guide</li>
+                            <li class="flex items-center"><span class="text-red-500 mr-2">✗</span> Personal Trainer</li>
+                        </ul>
+                        <button onclick="selectPlan('regular')" class="w-full bg-orange-600 hover:bg-orange-700 py-3 rounded-lg font-semibold transition-colors">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Premium Plan -->
+                <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700 hover:border-orange-500 transition-colors">
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold mb-4">PREMIUM</h3>
+                        <div class="text-4xl font-bold text-orange-500 mb-6">RS 8,500<span class="text-lg text-gray-400">/month</span></div>
+                        <ul class="space-y-3 mb-8 text-left">
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> 24/7 VIP Access</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> All Premium Equipment</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Private Locker + Amenities</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Unlimited Group Classes</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> 4 Personal Training Sessions</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Custom Nutrition Plan</li>
+                        </ul>
+                        <button onclick="selectPlan('premium')" class="w-full bg-orange-600 hover:bg-orange-700 py-3 rounded-lg font-semibold transition-colors">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+        <section class="py-20 bg-gray-800">
+            <div class="max-w-6xl mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 text-orange-500">My Plan</h2>
+                <div class="bg-gray-900 rounded-2xl p-8 mb-8">
+                    <h3 class="text-2xl font-semibold mb-6">Current Subscription</h3>
+                    <div id="current-plan">
+                        <p class="text-gray-400">No active plan. Choose a plan to get started!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BMI Calculator in Dashboard -->
+        <section id="dashboard-bmi" class="py-20 bg-gray-900">
+            <div class="max-w-4xl mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 text-orange-500">BMI Calculator</h2>
+                <div class="bg-gray-800 rounded-2xl p-8">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-2xl font-semibold mb-6">Calculate Your BMI</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Height (cm)</label>
+                                    <input type="number" id="dashboard-height" placeholder="Enter height in cm" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-orange-500 focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Weight (kg)</label>
+                                    <input type="number" id="dashboard-weight" placeholder="Enter weight in kg" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-orange-500 focus:outline-none">
+                                </div>
+                                <button onclick="calculateDashboardBMI()" class="w-full bg-orange-600 hover:bg-orange-700 py-3 rounded-lg font-semibold transition-colors">
+                                    Calculate BMI
+                                </button>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-semibold mb-6">Your Result</h3>
+                            <div id="dashboard-bmi-result" class="bg-gray-700 rounded-lg p-6 text-center">
+                                <p class="text-gray-400">Enter your height and weight to calculate BMI</p>
+                            </div>
+                            <div class="mt-6 text-sm text-gray-400">
+                                <h4 class="font-semibold mb-2">BMI Categories:</h4>
+                                <ul class="space-y-1">
+                                    <li>• Underweight: Below 18.5</li>
+                                    <li>• Normal: 18.5 - 24.9</li>
+                                    <li>• Overweight: 25 - 29.9</li>
+                                    <li>• Obese: 30 and above</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- BMI History Section -->
+                <div class="bg-gray-800 rounded-2xl p-8 mt-8">
+                    <h3 class="text-2xl font-semibold mb-6">BMI History</h3>
+                    <div id="bmi-history" class="space-y-4">
+                        <p class="text-gray-400">Loading BMI history...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Load JavaScript files -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

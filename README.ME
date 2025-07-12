@@ -1,0 +1,125 @@
+# 🏋️‍♂️ FitZone Gym Website
+
+A modern, responsive gym website with user authentication, plan management, and BMI tracking.
+
+## ✨ Features
+
+- **User Authentication** - Sign up, login, logout with session management
+- **Gym Plans** - Basic, Regular, Premium subscriptions
+- **BMI Calculator** - Calculate and track BMI history
+- **Responsive Design** - Works perfectly on all devices
+- **Database Integration** - Real-time data with Supabase
+- **Modern UI** - Beautiful design with Tailwind CSS
+
+## 📁 File Structure
+
+FitZone-Gym-Website/
+├── index.html          # Main HTML file
+├── styles.css          # Custom CSS styles
+├── script.js           # Main JavaScript functionality
+├── config.js           # Configuration and settings
+└── README.md           # This file
+
+## 🚀 Quick Start
+
+1. **Download all files** and place them in the same folder
+2. **Install Live Server Extension** in VS Code
+3. **Open `index.html`**
+4. **Right-click** → **"Open with Live Server"**
+5. **Website opens** at `http://127.0.0.1:5500`
+
+## 🔧 Database Setup (Optional)
+
+For full functionality with user accounts and data persistence:
+
+1. Go to [Supabase Dashboard](https://supabase.com/dashboard)
+2. Navigate to **SQL Editor**
+3. Run these SQL commands:
+
+```sql
+-- Create users table
+CREATE TABLE users (
+    email VARCHAR(255) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    current_plan VARCHAR(50),
+    plan_start_date TIMESTAMP,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Create BMI records table
+CREATE TABLE bmi_records (
+    id SERIAL PRIMARY KEY,
+    user_email VARCHAR(255) REFERENCES users(email) ON DELETE CASCADE,
+    height DECIMAL(5,2) NOT NULL,
+    weight DECIMAL(5,2) NOT NULL,
+    bmi DECIMAL(4,1) NOT NULL,
+    category VARCHAR(50) NOT NULL,
+    recorded_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Enable Row Level Security
+ALTER TABLE users ENABLE ROW LEVEL SECURITY;
+ALTER TABLE bmi_records ENABLE ROW LEVEL SECURITY;
+
+-- Create policies for access
+CREATE POLICY "Allow all operations on users" ON users FOR ALL USING (true);
+CREATE POLICY "Allow all operations on bmi_records" ON bmi_records FOR ALL USING (true);
+📱 Usage
+Browse gym plans and features
+Sign up for a new account
+Login to access dashboard
+Calculate BMI and track history
+Purchase plans and manage subscriptions
+🛠️ Technologies
+HTML5 - Structure and content
+CSS3 - Styling and animations
+JavaScript - Interactive functionality
+Tailwind CSS - Utility-first CSS framework
+Supabase - Backend database
+Responsive Design - Mobile-first approach
+🎨 Customization
+Colors
+Edit styles.css to change the color scheme:
+Primary: Orange (#f97316)
+Background: Dark Gray (#111827)
+Text: White/Gray
+Plans
+Modify config.js to update gym plans:
+PLANS: {
+    basic: {
+        name: 'BASIC',
+        price: '₹2,500',
+        features: [...]
+    }
+}
+Database
+Update config.js with your Supabase credentials:
+SUPABASE_URL: 'your-project-url',
+SUPABASE_ANON_KEY: 'your-anon-key'
+📞 Support
+For issues or questions:
+Check browser console for errors
+Verify all files are in the same folder
+Ensure Live Server is running
+Check internet connection for CDN resources
+🔒 Security Notes
+Passwords are stored in plain text (demo only)
+Use proper hashing in production
+Implement proper authentication
+Add input validation and sanitization
+📄 License
+This project is for educational purposes. Feel free to modify and use as needed.
+
+## 🎯 **Setup Instructions:**
+
+1. **Create a folder** called `FitZone-Gym-Website`
+2. **Create these 5 files** inside the folder:
+   - `index.html` (copy the HTML code above)
+   - `styles.css` (copy the CSS code above)
+   - `script.js` (copy the JavaScript code above)
+   - `config.js` (copy the config code above)
+   - `README.md` (copy the README above)
+3. **Open the folder** in VS Code
+4. **Install Live Server** extension
+5. **Right-click `index.html`** → **"Open with Live Server"**
