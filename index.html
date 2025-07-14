@@ -7,6 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-900 text-white">
     <!-- Navigation -->
@@ -243,15 +245,15 @@
                 <div class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium mb-2">Full Name</label>
-                        <input type="text" id="signup-name" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-orange-500 focus:outline-none">
+                        <input type="text"  id="signup-name" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-orange-500 focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-2">Email</label>
-                        <input type="email" id="signup-email" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-orange-500 focus:outline-none">
+                        <input type="email" placeholder="sample@gmail.com" id="signup-email" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-orange-500 focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium mb-2">Password</label>
-                        <input type="password" id="signup-password" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-orange-500 focus:outline-none">
+                        <input type="password" placeholder="password must be 6 chacters" id="signup-password" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-orange-500 focus:outline-none">
                     </div>
                     <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 py-3 rounded-lg font-semibold transition-colors">
                         Sign Up
@@ -312,6 +314,8 @@
 
         <!-- My Plan Section -->
              <!-- Pricing Section -->
+              <section id="dashboard-plan" class="py-20 bg-gray-800">
+
     <section id="pricing" class="py-20 bg-gray-900">
         <div class="max-w-6xl mx-auto px-6">
             <h2 class="text-4xl font-bold text-center mb-12 text-orange-500">Choose Your Plan</h2>
@@ -440,6 +444,7 @@
             </div>
         </section>
     </div>
+    
 
     <!-- Load JavaScript files -->
     <script src="config.js"></script>
