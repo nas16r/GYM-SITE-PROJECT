@@ -345,7 +345,7 @@ function updateCurrentPlanDisplay() {
     const currentPlanDiv = document.getElementById('current-plan');
     
     if (!userPlan) {
-        currentPlanDiv.innerHTML = '<p class="text-gray-400">No active plan. Choose a plan to get started!</p>';
+        currentPlanDiv.innerHTML = '<p class="text-blue-400">No active plan. Choose a plan to get started!</p>';
         return;
     }
 
@@ -554,10 +554,27 @@ function displayBMIHistory(records) {
 
 // Navigation function for main website sections
 function navigateToSection(sectionId) {
-    // Ensure main sections are visible by hiding the user dashboard.
-    // This function sets display: 'block' for 'home', 'about', 'pricing', 'bmi'.
-    hideUserDashboard(); 
+    if (currentUser) {
+        // Map guest sections to their dashboard counterparts
+        const dashboardMap = {
+            home: 'home',
+            bmi: 'bmi',
+            pricing: 'plan', // dashboard-plan not dashboard-pricing
+            about: 'home'    // no dashboard-about, fallback to home
+        };
 
+        const mappedId = dashboardMap[sectionId];
+
+        const dashboardSection = document.getElementById(`dashboard-${mappedId}`);
+        if (dashboardSection) {
+            showUserDashboard();
+            dashboardSection.scrollIntoView({ behavior: 'smooth' });
+            return;
+        }
+    }
+
+    // Not logged in OR no dashboard section
+    hideUserDashboard();
     const targetElement = document.getElementById(sectionId);
     if (targetElement) {
         targetElement.scrollIntoView({ behavior: 'smooth' });
@@ -565,6 +582,8 @@ function navigateToSection(sectionId) {
         console.warn(`Section with ID '${sectionId}' not found.`);
     }
 }
+
+
 
 // New navigation function for sections within the user dashboard
 function navigateToDashboardSection(dashboardSectionId) {
@@ -638,3 +657,17 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+module.exports = {
+  content: ["./src/**/*.{html,js}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+window.signup = signup;
+window.login = login;
+window.showLogin = showLogin;
+window.showSignup = showSignup;
+window.hideLogin = hideLogin;
+window.hideSignup = hideSignup;
+window.validatePasswordLength = validatePasswordLength;
